@@ -6,13 +6,15 @@ port = 12345
 # Defina as perguntas do quiz e as respostas corretas
 quiz_data = [
     {"pergunta": """Qual é a capital da França?
-    a) Paris
-    b) Madrid
-    c) Genova    
+a) Paris
+b) Madrid
+c) Genova
+d) Teste
     """, "resposta_correta": "a)"},
     {"pergunta": "Qual é o maior planeta do sistema solar?", "resposta_correta": "Júpiter"},
     {"pergunta": "Quem escreveu 'Dom Quixote'?", "resposta_correta": "Cervantes"}
 ]
+
 
 
 def start_quiz(conn):
