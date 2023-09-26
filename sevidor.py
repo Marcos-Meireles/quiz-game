@@ -35,7 +35,7 @@ b) Rede onde os componentes trabalham um em prol do outro visando o cumprimento 
 c) Rede responsável por manter a independência entre os protocolos de cada camada
 d) Rede formada sobre outra rede, contendo apenas os nós e enlaces necessários ao funcionamento do sistema
     """, "resposta_correta": "d)"},
-    {"pergunta": """6- Qual a principal vantagem a ser obtida quando se monta um sistema distribuído para utilização emsubstituição a um sistema centralizado?
+    {"pergunta": """6- Qual a principal vantagem a ser obtida quando se monta um sistema distribuído para utilização em substituição a um sistema centralizado?
 a) Somar o poder de processamento dos equipamentos na execução da tarefa.
 b) Promover a comunicação entre os sistemas oferecendo a mesma interface para as aplicações.
 c) Economia de recursos e compartilhamento de informações.
@@ -66,7 +66,6 @@ c) Usar a trasparência total pode piorar a performance do sistema.
 d) Usar a trasparência total pode aumentar o custo de desenvolvimento.
     """,  "resposta_correta": "a)"},
 ]
-
 
 
 def start_quiz(conn):
