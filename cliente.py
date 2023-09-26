@@ -2,7 +2,7 @@ import socket
 import tkinter as tk
 
 host = 'localhost'
-port = 12346
+port = 12345
 
 
 def mostrar_questoes(pergunta):
@@ -22,7 +22,7 @@ def mostrar_questoes(pergunta):
     titulo = tk.Label(frame1,text=questao,justify=tk.CENTER)
     titulo.pack(side=tk.LEFT)
 
-    alternativa1 = tk.Button(frame2, text=respostas[1], command='resposta', width=50, justify=tk.CENTER)
+    alternativa1 = tk.Button(frame2, textvariable=respostas[1], command='resposta', width=50, justify=tk.LEFT)
     alternativa1.pack()
 
     # alternativa2 = tk.Button(frame3, text=respostas[1], command='resposta', width=50, justify=tk.CENTER)
@@ -51,9 +51,6 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
         # resposta = input('Sua resposta: ')
         # s.sendall(resposta.encode())
         cont += 1
-
-
-
 
 
 resultado = s.recv(1024).decode()
