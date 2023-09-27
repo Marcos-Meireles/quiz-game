@@ -12,7 +12,6 @@ def mostrar_questoes(pergunta):
 
     respostas = pergunta.split('\n')
     questao = respostas[0]
-    print(f"Pergunta: {questao}")
 
     root = tk.Tk()
     root.title('Quiz sistemas Distribuídos')
@@ -24,21 +23,27 @@ def mostrar_questoes(pergunta):
     frame6 = tk.Frame(root)
 
     titulo = tk.Label(frame1, text=questao, justify=tk.CENTER, wraplength=500)
+    titulo.config(font=("roboto-condensed", 20))
     titulo.pack(side=tk.LEFT)
 
     alternativa1 = tk.Button(frame2, text=respostas[1], command=escolha('a)'), width=50, justify=tk.LEFT, wraplength=350)
+    titulo.config(font=("roboto-condensed", 12))
     alternativa1.pack()
 
     alternativa2 = tk.Button(frame3, text=respostas[2], command=escolha('b)'), width=50, justify=tk.LEFT, wraplength=350)
+    titulo.config(font=("roboto-condensed", 12))
     alternativa2.pack()
 
     alternativa3 = tk.Button(frame4, text=respostas[3], command=escolha('c)'), width=50, justify=tk.LEFT, wraplength=350)
+    titulo.config(font=("roboto-condensed", 12))
     alternativa3.pack()
 
     alternativa4 = tk.Button(frame5, text=respostas[4], command=escolha('d)'), width=50, justify=tk.LEFT, wraplength=350)
+    titulo.config(font=("roboto-condensed", 12))
     alternativa4.pack()
 
     enviar = tk.Button(frame6,text='Enviar',command=root.destroy, width=50, justify=tk.LEFT, wraplength=350)
+    titulo.config(font=("roboto-condensed", 20))
     enviar.pack()
 
     frame1.pack(padx=1, pady=1)
