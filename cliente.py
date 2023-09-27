@@ -4,6 +4,7 @@ import tkinter as tk
 host = 'localhost'
 port = 12345
 
+#----------------------Responsável pela elaboração da Tela Inicial do Quiz---------------------#
 def tela_Inicio():
     root = tk.Tk()
 
@@ -23,7 +24,9 @@ def tela_Inicio():
     frame2.pack(pady=10, padx=10)
 
     root.mainloop()
+#-----------------------------------------------------------------------------------------------#
 
+#--------------Define as respostas (A,B,C,D) de cada pergunta do quiz--------------------#
 def resposta1():
     resposta = 'a)'
 
@@ -43,7 +46,9 @@ def resposta3():
 def resposta4():
     resposta = 'd)'
     return s.sendall(resposta.encode())
+#------------------------------------------------------------------------------------------#
 
+#----------Responsável por criar a tela de Questões e Respostas----------------#
 
 def tela_questoes(pergunta):
 
@@ -64,6 +69,9 @@ def tela_questoes(pergunta):
     titulo.config(font=("roboto-condensed", 16))
     titulo.pack(side=tk.LEFT)
 
+#--------------------------------------------------------------------------#
+
+    #--------Responsável pela criação de cada botão referente as respostas da questão--------------------#
     alternativa1 = tk.Button(frame2, text=respostas[1], command=resposta1, width=50, justify=tk.LEFT, wraplength=350,bd=3)
     alternativa1.config(font=("roboto-condensed", 12))
     alternativa1.pack()
@@ -95,7 +103,9 @@ def tela_questoes(pergunta):
     
     root.mainloop()
 
+#------------------------------------------------------------------------------------------------------#
 
+#------------------Responsável pela elaboração da Tela Final Quiz--------------------------------------#
 def tela_final(texto):
     root = tk.Tk()
 
@@ -121,8 +131,9 @@ def tela_final(texto):
     frame3.pack(padx=30)
 
     root.mainloop()
+#--------------------------------------------------------------------------------------------------------#
 
-
+#----------Responsável pela elaboração do resultado do Quiz------------#
 with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
     s.connect((host, port))
 
@@ -133,13 +144,5 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
             break
         tela_questoes(question)
 
-        # resposta = input('Sua resposta: ')
-        # s.sendall(resposta.encode())
-
-
-
-        # resposta = input('Sua resposta: ')
-        # s.sendall(resposta.encode())
-
-
     tela_final(question)
+#-----------------------------------------------------------------------#
