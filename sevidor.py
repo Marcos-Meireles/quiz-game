@@ -68,7 +68,6 @@ d) Usar a trasparência total pode aumentar o custo de desenvolvimento.
 ]
 
 
-
 def start_quiz(conn):
     score = 0
 
