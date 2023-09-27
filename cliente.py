@@ -66,13 +66,15 @@ def mostrar_questoes(pergunta):
 with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
     s.connect((host, port))
     cont = 0
-    while True:
+    while cont < 10:
         question = s.recv(1024).decode()
         mostrar_questoes(question)
         if not question:
             break
+        # resposta = input('Sua resposta: ')
+        # s.sendall(resposta.encode())
+        cont += 1
 
-        print(f"Pergunta: {question}")
 
         # resposta = input('Sua resposta: ')
         # s.sendall(resposta.encode())
