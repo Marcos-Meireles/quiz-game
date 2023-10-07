@@ -19,7 +19,7 @@
 
 De início, o servidor é iniciado e fica esperando em loop infinito esperando a conexão com o cliente. 
 Para a conexão, foi utilizada a biblioteca própria para a conexão via socket onde é colocado as variáveis do host e a porta a ser utilizada, nesse caso em específico, é possível colocar a string 'localhost' para pegar o ip do host local. A porta definida foi a 12345.
-```
+```python
 import socket
 import tkinter as tk
 
@@ -34,10 +34,11 @@ Dentro das variáveis conn e addr serão armazenadas as informações de conexã
 
 Após os rituais do jogo, a conexão automaticamente é encerrada.
 
+```python
 with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
     s.bind((host, port))
     s.listen()
-```
+
     print(f'Aguardando conexão em {host}:{port}')
     conn, addr = s.accept()
     print('Conexão de', addr)
@@ -50,7 +51,7 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
 ### Cliente
 
 Para a conexão, foi utilizada a biblioteca própria para a conexão via socket onde é colocado as variáveis do host e a porta a ser utilizada, nesse caso em específico, é possível colocar a string 'localhost' para pegar o ip do host local. A porta definida foi a 12345.
-```
+```python
 import socket
 import tkinter as tk
 
