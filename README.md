@@ -37,7 +37,7 @@ Após os rituais do jogo, a conexão automaticamente é encerrada.
 with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
     s.bind((host, port))
     s.listen()
-
+```
     print(f'Aguardando conexão em {host}:{port}')
     conn, addr = s.accept()
     print('Conexão de', addr)
@@ -45,28 +45,28 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
     start_quiz(conn)
 
     print('Conexão encerrada.')
+```
 
-
-Cliente
+### Cliente
 
 Para a conexão, foi utilizada a biblioteca própria para a conexão via socket onde é colocado as variáveis do host e a porta a ser utilizada, nesse caso em específico, é possível colocar a string 'localhost' para pegar o ip do host local. A porta definida foi a 12345.
-
+```
 import socket
 import tkinter as tk
 
 host = 'localhost'
 port = 12345
-
+```
 Para estabelecer a conexão com o servidor, é usada a função socket com os parâmetros AF_INET (para definir a família de endereço ipv4) e SOCK_STREM para mostrar que a conexão orientada no protocolo TCP e sendo armazenada na variável s.
 
-A função connect() estabelece a conexão com o servidor passando o host e a porta requisitada.
+A função `connect()` estabelece a conexão com o servidor passando o host e a porta requisitada.
 
-Após o início da conexão, é iniciada a função tela_inicio() para apresentar o jogo.
+Após o início da conexão, é iniciada a função `tela_inicio()` para apresentar o jogo.
 
-Dentro do loop infinito, é armazenada dentro da variável question a mensagem do servidor com as perguntas do jogo que serão mostradas na função tela_questoes(), caso a mensagem seja referente a pontuação final, o loop acabará.
+Dentro do loop infinito, é armazenada dentro da variável question a mensagem do servidor com as perguntas do jogo que serão mostradas na função `tela_questoes()`, caso a mensagem seja referente a pontuação final, o loop acabará.
 
-Após o while, a última resposta do servidor com a pontuação do cliente é mostrada na função tela_final().
-
+Após o while, a última resposta do servidor com a pontuação do cliente é mostrada na função `tela_final()`.
+```python
 with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
     s.connect((host, port))
 
@@ -78,15 +78,15 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
         tela_questoes(question)
 
     tela_final(question)
-
+```
 
 
 Funcionamento do protocolo com explicação das mensagens trocadas
 
-Servidor
+## Servidor
 
 Para o envio de mensagens por parte do servidor, inicialmente foi definida uma lista de dicionários, que serão armazenadas em uma variável e aproveitada durante a troca de mensagens. A lista contém o enunciado e a resposta de cada pergunta.
-
+```python
 quiz_data = [
     {"pergunta": """1 - O que é um sistema distribuído aberto?
 a) É um sistema que permite uma ampliação gradual de seus recursos
@@ -149,7 +149,7 @@ c) Usar a trasparência total pode piorar a performance do sistema.
 d) Usar a trasparência total pode aumentar o custo de desenvolvimento.
     """,  "resposta_correta": "a)"},
 ]
-
+```
 Para a dinâmica do jogo, foi feita uma função para obter a lista criada anteriormente e enviar de forma sequencial para o cliente, esperando a resposta para enviar cada pergunta.
 
 Dentro da função, é iniciada a variável score que será responsável pela pontuação do cliente.
@@ -166,7 +166,7 @@ Após o loop, é enviada a resposta final com a pontuação do cliente, após is
 
 def start_quiz(conn):
     score = 0
-
+```python
     for question in quiz_data:
         conn.sendall(question['pergunta'].encode())
         resposta = conn.recv(1024).decode()
@@ -183,12 +183,12 @@ def start_quiz(conn):
     conn.sendall(f"""OBRIGADO POR JOGAR!
 Sua pontuação final é: {score}/{len(quiz_data)}
 {emoji}""".encode())
-
-Cliente
+```
+## Cliente
 
 Dentro do script referente ao cliente, foram feitas diversas funções para as situações propostas pelo servidor. Primeiramente, vale ressaltar que foi utilizada a biblioteca tkinter para mostrar as mensagens trocadas entre cliente e servidor.
 
-Tela de início
+### Tela de início
 
 Função criada com o fito de “apresentar o jogo“ ao cliente. Ela não utiliza nenhuma mensagem recebida pelo servidor. 
 
@@ -196,16 +196,16 @@ Primeiramente, é iniciada a tela que será usada.
 
 São definidos: 
 
-O título da tela
+- O título da tela
 
-Os frames a serem utilizados
+- Os frames a serem utilizados
 
-O primeiro frame será responsável por colocar o texto de apresentação do jogo.
+- O primeiro frame será responsável por colocar o texto de apresentação do jogo.
 
-O segundo frame terá um botão para iniciar o jogo.
+- O segundo frame terá um botão para iniciar o jogo.
 
-No final é usada a função mainloop() para mostrar a tela.
-
+No final é usada a função `mainloop()` para mostrar a tela.
+```python
 def tela_Inicio():
     root = tk.Tk()
 
@@ -225,17 +225,15 @@ def tela_Inicio():
     frame2.pack(pady=10, padx=10)
 
     root.mainloop()
+```
 
-
-
-Definição de respostas
+### Definição de respostas
 
 Função criada para enumerar os tipos de respostas dentro do Quiz, utilizando a formatação de A,B,C e D.
 
-É utilizado a opção "RETURN S.SENDALL" para enviar as respostas escolhidas para o servidor em questão.
+- É utilizado a opção `"RETURN S.SENDALL"` para enviar as respostas escolhidas para o servidor em questão.
 
-
-
+```python
 def resposta1():
     resposta = 'a)'
 
@@ -255,25 +253,25 @@ def resposta3():
 def resposta4():
     resposta = 'd)'
     return s.sendall(resposta.encode())
+```
+### Tela de questões
 
-Tela de questões
-
-
+![image](https://github.com/Marcos-Meireles/quiz-game/assets/82594356/45582ad1-77d4-4699-a3a9-7c69d78d9e04)
 
 Função criado com o objetivo de “apresentar as questões” que serão discutidas dentro do Quiz.
 
 São definidos:
 
-A pergunta que será respondida (em formatação “Título”).
+- A pergunta que será respondida (em formatação “Título”).
 
-As opções (respostas) referente a pergunta retratada.
+- As opções (respostas) referente a pergunta retratada.
 
-Os frames a serem utilizados.
+- Os frames a serem utilizados.
 
-Cada frame receberá cada alternativa enviada pelo servidor.
+- Cada frame receberá cada alternativa enviada pelo servidor.
 
-A formatação visual da tela de perguntas e respostas.
-
+- A formatação visual da tela de perguntas e respostas.
+```python
 def tela_questoes(pergunta):
 
     respostas = pergunta.split('\n')
@@ -292,17 +290,17 @@ def tela_questoes(pergunta):
     titulo = tk.Label(frame1,text=questao,justify=tk.CENTER, wraplength=500)
     titulo.config(font=("roboto-condensed", 16))
     titulo.pack(side=tk.LEFT)
-
-Tela de questões
+```
+### Tela de questões (código)
 
 Modelo de codificação para a construção das opções de respostas para cada pergunta, de modo mais visual.
 
-É utilizado "tk.Button" para aplicar a cada modelo de resposta uma formatação de BOTÃO, para torná-lo executável.
+- É utilizado "tk.Button" para aplicar a cada modelo de resposta uma formatação de BOTÃO, para torná-lo executável.
 
-Frames utilizados para textualização das opções de respostas.
+- Frames utilizados para textualização das opções de respostas.
 
-Utiliza-se "mainloop()" para mostrar a tela com as alternativas referente a cada questão.
-
+- Utiliza-se `"mainloop()"` para mostrar a tela com as alternativas referente a cada questão.
+```python
     alternativa1 = tk.Button(frame2, text=respostas[1], command=resposta1, width=50, justify=tk.LEFT, wraplength=350,bd=3)
     alternativa1.config(font=("roboto-condensed", 12))
     alternativa1.pack()
@@ -333,21 +331,21 @@ Utiliza-se "mainloop()" para mostrar a tela com as alternativas referente a cada
 
     
     root.mainloop()
+```
 
-
-
-Tela Final
+### Tela Final
 
 Função para mostrar a tela final, responsável por demonstrar o resultado final do usuário, apresentando número de acertos referente as questões elaboradas dentro do jogo.
 
-O título da tela.
+- O título da tela.
 
-Os frames que serão utilizados.
+- Os frames que serão utilizados.
 
-Opção/Botão de saída.
+- Opção/Botão de saída.
 
-Utilização de "mainloop()" para ilustração da tela de resultados do Quiz.
+- Utilização de `mainloop()` para ilustração da tela de resultados do Quiz.
 
+```python
 def tela_final(texto):
     root = tk.Tk()
 
@@ -373,12 +371,9 @@ def tela_final(texto):
     frame3.pack(padx=30)
 
     root.mainloop()
+```
 
-
-
-
-
-Execução
+# Execução
 
 Como os dois scripts são feitos com a linguagem python, é preciso instalá-lo para executar os scripts.
 
@@ -386,31 +381,37 @@ Para a instalação basta realizar o download no site oficial da linguagem: http
 
 Após a instalação, basta clicar com o botão direito no arquivo e selecionar 'Abrir com' e selecionar o python para executar. 
 
-
+![image](https://github.com/Marcos-Meireles/quiz-game/assets/82594356/642544e2-80d0-4e7c-8c42-e05031fd958d)
 
 Primeiramente, é executado o arquivo servidor.py para iniciar o servidor para começar a conexão e depois é executado o cliente.py.
 
-Início da execução do servidor:
+- Início da execução do servidor:
 
 
-
-Após a conexão com o cliente (executar o arquivo cliente.py):
-
+![image](https://github.com/Marcos-Meireles/quiz-game/assets/82594356/3a05a811-426b-4397-a27c-1b06205c4031)
 
 
-Tela de apresentação:
+- Após a conexão com o cliente (executar o arquivo cliente.py):
+
+![image](https://github.com/Marcos-Meireles/quiz-game/assets/82594356/1792e544-8b5d-41e4-b1ed-b4720ddc36b7)
 
 
+- Tela de apresentação:
 
-Estrutura da pergunta (padrão utilizado durante o jogo):
-
-
-
-Tela final:
+![image](https://github.com/Marcos-Meireles/quiz-game/assets/82594356/84d21deb-5ca1-4917-bad4-c89fce0e2260)
 
 
+- Estrutura da pergunta (padrão utilizado durante o jogo):
 
-Localização dos códigos
+![image](https://github.com/Marcos-Meireles/quiz-game/assets/82594356/a20d8f2f-c62d-4201-9db8-bae8998f2742)
+
+
+- Tela final:
+
+![image](https://github.com/Marcos-Meireles/quiz-game/assets/82594356/e559b9a6-9fc3-411e-81dd-acd773c50739)
+
+
+# Localização dos códigos
 
 Os códigos estão presentes para download no repositório do aluno Marcos Paulo Meireles na plataforma GitHub:
 
