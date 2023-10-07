@@ -7,3 +7,5 @@ a questão ficará marcada indicando qual será respondida, permitindo que o usu
 questões, possibilitando a opção de "avançar" para próxima questão ou então "voltar" para possível revisão ou correção de alguma questão antes respondida. Ao responder todas as 
 questões indicadas no Quiz, o usuário poderá finalizar sua tentativa, onde será exibido seu resultado durante o Quiz, na formatação preenchimento (exemplo: 4/10), possibilitando
 uma nova tentativa ou fechamento do Quiz.  
+
+## ASAS
